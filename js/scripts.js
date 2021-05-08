@@ -12,10 +12,10 @@ let PokemonList = [
 
 for (let i = 0; i < PokemonList.length; i++) {
     if (PokemonList[i].height > 1.5) {
-        console.log(PokemonList[i].name + " Wow, that’s big!");
+        document.write(PokemonList[i].name + " Wow, that’s big!");
     } else if (PokemonList[i].height <= 1.5 && PokemonList[i].height > 0.8) {
-        console.log(PokemonList[i].name + " Am, middle size!");
+        document.write(PokemonList[i].name + " Am, middle size!");
     } else if (PokemonList[i].height < 0.8) {
-        console.log(PokemonList[i].name + " He is small!");
+        document.write(PokemonList[i].name + " He is small!");
     }
 }
