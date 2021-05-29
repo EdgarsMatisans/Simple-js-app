@@ -1,10 +1,11 @@
 alert("Hello world from Edgars");
 let myName = "Edgars";
 document.write(myName);
-myName = "Matisans";
-document.write(myName);
+myName = " Matisans";
+document.write(myName + "<br>");
 
-let PokemonRepository = function() {
+let PokemonRepository = (function() {
+    //IIFE
     let PokemonList = [
         { name: "Bulbasaur", height: 0.7, types: ["grass", "poison"] },
         { name: "Ivysaur", height: 1, types: ["grass", "poison"] },
@@ -19,18 +20,27 @@ let PokemonRepository = function() {
         return PokemonList;
     }
     return {
-        getAll: getAll,
         add: add,
+        getAll: getAll,
     };
-    console.log(PokemonRepository.getAll());
+})();
 
-    PokemonList.forEach(function(pokemon) {
-        if (PokemonList[i].height <= 1.5) {
-            document.write(PokemonList[i].name + " Wow, that’s big!");
-        } else if (PokemonList[i].height <= 1.5 && PokemonList[i].height > 0.8) {
-            document.write(PokemonList[i].name + " Am, middle size!");
-        } else if (PokemonList[i].height < 0.8) {
-            document.write(PokemonList[i].name + " He is small!");
-        }
-    });
-};
+PokemonRepository.getAll().forEach(function(pokemon) {
+    if (pokemon.height >= 1.5) {
+        document.write(pokemon.name + " Wow, that’s big!<br>");
+    } else if (pokemon.height < 1.5 && pokemon.height > 0.8) {
+        document.write(pokemon.name + " Am, middle size!<br>");
+    } else if (pokemon.height <= 0.8) {
+        document.write(pokemon.name + " He is small!<br>");
+    }
+});
+
+PokemonRepository.getAll().forEach(function(pokemon) {
+    let pokemonList = document.querySelector(".pokemon-list");
+    let listpokemon = document.createElement("li");
+    let button = document.createElement("button");
+    button.innerText = "placeholder";
+    button.classList.add("button-class");
+    listpokemon.appendChild(button);
+    pokemonList.appendChild(listpokemon);
+});
