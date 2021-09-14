@@ -1,12 +1,6 @@
-// alert("Hello world from Edgars");
-// let myName = "Edgars";
-// document.write(myName);
-// myName = " Matisans";
-// document.write(myName + "<br>");
-
 let PokemonRepository = (function() {
     let PokemonList = [];
-    let apiUrl = "https://pokeapi.co/api/v2/pokemon/?limit=150";
+    let apiUrl = "https://pokeapi.co/api/v2/pokemon/?limit=20";
 
     function add(pokemon) {
         if (typeof pokemon === "object" && "name" in pokemon) {
@@ -29,7 +23,7 @@ let PokemonRepository = (function() {
         listpokemon.appendChild(button);
         pokemonList.appendChild(listpokemon);
         button.addEventListener("click", function(event) {
-            showDetails(pokemon);
+            showdocument(pokemon);
         });
     }
 
@@ -98,57 +92,60 @@ PokemonRepository.loadList().then(function() {
     });
 });
 
-// PokemonRepository.getAll().forEach(function(pokemon) {
-//     if (pokemon.height >= 1.5) {
-//         document.write(pokemon.name + " Wow, that’s big!<br>");
-//     } else if (pokemon.height < 1.5 && pokemon.height > 0.8) {
-//         document.write(pokemon.name + " Am, middle size!<br>");
-//     } else if (pokemon.height <= 0.8) {
-//         document.write(pokemon.name + " He is small!<br>");
-//     }
-// });
+let modalContainer = document.querySelector('#modal-container');
 
-// PokemonRepository.getAll().forEach(function(pokemon) {
-//     PokemonRepository.addListItem(pokemon);
-// });
+function showModal(title, text, imageUrl) {
+  modalContainer.innerHTML = '';
+  let modal = document.createElement('div');
+  modal.classList.add('modal');
 
-// let count = 1;
+  let closeButtonElement = document.createElement ('button');
+  closeButtonElement.classList.add('modal-close');
+  closeButtonElement.innerText = 'Close';
+  closeButtonElement.addEventListener('click', hideModal);
 
-// function increaseCount() {
-//     count = count + 1;
-// }
-// setTimeout(function() {
-//     console.log("first call", count);
-//     increaseCount();
-// }, 1000);
-// setTimeout(function() {
-//     console.log("second call", count);
-//     increaseCount();
-// }, 100);
-// setTimeout(function() {
-//     console.log("third call", count);
-//     increaseCount();
-// }, 500);
+  let titleElement = document.createElement('h1');
+  titleElement.innerText = title;
 
-// return {
-//     add: add,
-//     getAll: getAll,
-//     loadList: loadList,
-// };
+  let contentElement = document.createElement('p');
+  contentElement.innerText = text;
 
-// let pokemonRepository = (function() {
-//     // Other functions here…
+// Create an <img> element
+let myImage = document.createElement('img');
 
-//     return {
-//         add: add,
-//         getAll: getAll,
-//         loadList: loadList,
-//         loadDetails: loadDetails,
-//     };
-// })();
+// setting `src` property to set the actual element's `src` attribute
+// this also works on <img> elements selected by querySelector() method, it is not specific for <img> elements created with createElement() methods
+myImage.src = 'https://picsum.photos/300/300';
 
-// function showDetails(pokemon) {
-//     loadDetails(pokemon).then(function() {
-//         console.log(pokemon);
-//     });
-// }
+  modal.appendChild(closeButtonElement);
+  modal.appendChild(titleElement);
+  modal.appendChild(contentElement);
+  modalContainer.appendChild(modal);
+  modalContainer.classList.add('is-visible');
+  modalContainer.appendChild(myImage);
+}
+
+function hideModal() {
+  let modalContainer = document.querySelector('#modal-container');
+  modalContainer.classList.remove('is-visible');
+}
+
+window.addEventListener('keydown', (e) => {
+  if (e.key === 'Escape' &&
+  modalContainer.classList.contains('is-visible')) {
+    hideModal();
+  }
+});
+
+modalContainer.addEventListener('click', (e) => {
+  //Since this is also triggered when clicking INSIDE the modal
+  //We only want to close if the user clicks directly on the overlay
+  let target = e.target;
+  if (target === modalContainer) {
+    hideModal()
+  }
+});
+
+document.querySelector('#show-modal').addEventListener('click', () => {
+  showModal('Pokemons name', 'Pokemon Height', 'Pokemon Image');
+});
