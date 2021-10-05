@@ -36,17 +36,6 @@
     /* CSS for modal container - add your own desired CSS styles here */
     display: block;
   }
-  
-  .modal {
-    margin: auto;
-    display: inline-block;
-    box-sizing: border-box;
-    background: #fff;
-    padding: 15px;
-    width: 100%;
-    max-width: 700px;
-    text-align: left; 
-  }
 
   .modal-close {
     float: right;
